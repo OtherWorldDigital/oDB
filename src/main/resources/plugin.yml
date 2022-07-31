@@ -1,0 +1,6 @@
+name: ODB
+version: '${project.version}'
+main: com.ruverq.odb.ODB
+api-version: 1.19
+authors: [ RuverQ ]
+description: ODatabase manager for some o projects
