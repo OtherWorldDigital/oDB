@@ -4,8 +4,13 @@ import com.ruverq.odb.database.sql.types.OSQLStatement;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
+
 public class OSQLRequest {
+
+    OSQLRequest(String rr, OSQLStatement s){
+        rawRequest = rr;
+        statement = s;
+    }
 
     @Getter
     String rawRequest;

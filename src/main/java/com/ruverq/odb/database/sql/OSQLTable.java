@@ -5,8 +5,11 @@ import lombok.Getter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class OSQLTable {
 
@@ -60,12 +63,33 @@ public class OSQLTable {
     //TODO
     public OSQLResult sendRequest(OSQLRequest request){
 
-        System.out.println("Executing " + request.getRawRequest());
-
         try(Connection connection = osql.getConnection()){
             Statement statement = connection.createStatement();
 
-            if(request.getStatement().isQuery()) return (OSQLResult) statement.executeQuery(request.getRawRequest());
+            if(request.getStatement().isQuery()) {
+                ResultSet set = statement.executeQuery(request.getRawRequest());
+
+                ResultSetMetaData metadata = set.getMetaData();
+                int numberOfCols = metadata.getColumnCount();
+
+                List<HashMap<String, Object>> list = new ArrayList<>();
+                while(set.next()){
+                    HashMap<String, Object> map = new HashMap<>();
+                    for(int i = 0; i < numberOfCols; i++){
+                        Object obj = set.getObject(i + 1);
+
+                        map.put(metadata.getColumnLabel(i + 1), obj);
+                    }
+
+                    list.add(map);
+                }
+
+                OSQLResult result = new OSQLResult(list);
+
+                return result;
+
+            }
+
             statement.execute(request.getRawRequest());
             return null;
 

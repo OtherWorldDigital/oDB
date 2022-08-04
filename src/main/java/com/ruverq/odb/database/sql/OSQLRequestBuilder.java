@@ -65,9 +65,17 @@ public class OSQLRequestBuilder{
 
     // For building
     private String getColumnsStatementListFormatted(){
+        if(columnsStatement.isEmpty()){
+            return "* ";
+        }
+
         return getListFormatted(columnsStatement);
     }
     private String getValuesStatementListFormatted(){
+        if(valuesStatement.isEmpty()){
+            return "";
+        }
+
         StringBuilder sb = new StringBuilder();
         HashMap<String, OSQLType> columns = table.getColumns();
 
@@ -111,6 +119,10 @@ public class OSQLRequestBuilder{
 
 
     private String getColumnEqualsValuesListFormatted(){
+        if(columnsStatement.isEmpty()){
+            return "";
+        }
+
         StringBuilder sb = new StringBuilder();
         HashMap<String, OSQLType> columns = table.getColumns();
 
