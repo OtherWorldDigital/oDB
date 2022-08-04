@@ -37,11 +37,22 @@ public class OSQLResult{
     }
 
     public boolean getBoolean(int columnNumber){
-        return (boolean) getObject(columnNumber);
+
+        int i = getInt(columnNumber);
+        if(i == 1){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public boolean getBoolean(String columnLabel){
-        return (boolean) getObject(columnLabel);
+        int i = getInt(columnLabel);
+        if(i == 1){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public float getFloat(int columnNumber){
