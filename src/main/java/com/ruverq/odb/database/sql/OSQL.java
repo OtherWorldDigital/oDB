@@ -5,6 +5,7 @@ import com.ruverq.odb.ODB;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.SneakyThrows;
+import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.sql.*;
@@ -15,19 +16,24 @@ public class OSQL extends ODatabase {
     String name;
     String path;
 
+    Plugin plugin;
+
     HikariDataSource ds;
 
     HashMap<String, OSQLTable> tables = new HashMap<>();
 
-    OSQL(String name, String path){
+    OSQL(String name, String path, Plugin plugin){
         this.name = name;
         this.path = path;
+        this.plugin = plugin;
 
         createConnection();
     }
 
-    public OSQL(String name){
+    public OSQL(String name, Plugin plugin){
         this.name = name;
+        this.plugin = plugin;
+
 
         createConnection();
     }

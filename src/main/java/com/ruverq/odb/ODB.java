@@ -17,10 +17,10 @@ public final class ODB extends JavaPlugin {
     @Override
     @SneakyThrows
     public void onEnable() {
-        instance = this;
+        setInstance(this);
 
         //Creating database
-        OSQL testDB = new OSQL("testdb");
+        OSQL testDB = new OSQL("testdb", this);
 
         //Creating table in database
         OSQLTableBuilder tableBuilder = new OSQLTableBuilder("testtable1");
@@ -63,6 +63,10 @@ public final class ODB extends JavaPlugin {
         OSQLResult result = table.sendRequest(requestBuilder1.build());
         String bruh = result.getString("stringthing2");
         System.out.println(bruh);
+    }
+
+    public static void setInstance(ODB instance) {
+        ODB.instance = instance;
     }
 
     @Override
