@@ -41,7 +41,7 @@ public class OSQLResult{
         int i = getInt(columnNumber);
         if(i == 1){
             return true;
-        }else{
+        } else{
             return false;
         }
     }
